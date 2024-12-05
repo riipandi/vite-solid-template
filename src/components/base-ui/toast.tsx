@@ -142,7 +142,7 @@ export const ToastContent = (props: ComponentProps<'div'>) => {
 
 export const ToastProgress: VoidComponent = () => {
   return (
-    <ToastPrimitive.ProgressTrack class="h-1 w-full overflow-hidden rounded-xl bg-primary/20 group-[.destructive]:bg-background/20">
+    <ToastPrimitive.ProgressTrack class="h-1 w-full overflow-hidden rounded-lg bg-primary/20 group-[.destructive]:bg-background/20">
       <ToastPrimitive.ProgressFill class="h-full w-[--kb-toast-progress-fill-width] bg-primary transition-all duration-150 ease-linear group-[.destructive]:bg-destructive-foreground" />
     </ToastPrimitive.ProgressTrack>
   )

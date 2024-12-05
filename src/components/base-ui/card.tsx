@@ -7,7 +7,7 @@ export const Card = (props: ComponentProps<'div'>) => {
 
   return (
     <div
-      class={clx('rounded-xl border bg-card text-card-foreground shadow', local.class)}
+      class={clx('rounded-lg border bg-card text-card-foreground shadow', local.class)}
       {...rest}
     />
   )

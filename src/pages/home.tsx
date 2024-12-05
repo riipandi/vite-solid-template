@@ -1,14 +1,41 @@
 import { useStore } from '@nanostores/solid'
+import { Show, createEffect, createSignal, onMount } from 'solid-js'
 import { Button } from '#/components/base-ui/button'
 import { Card, CardContent } from '#/components/base-ui/card'
+import { Link } from '#/components/link'
 import { resetUiState, saveUiState, uiStore } from '#/stores/ui.store'
 
 import viteLogo from '/vite.svg'
-import { Link } from '#/components/link'
 import solidLogo from '../assets/images/solid.svg'
+
+type Quotes = {
+  author: string
+  content: string
+}[]
 
 export default function Page() {
   const uiState = useStore(uiStore)
+  const [quotes, setQuotes] = createSignal<Quotes>([])
+  const [randomQuote, setRandomQuote] = createSignal<Quotes[0] | null>(null)
+
+  createEffect(() => {
+    const allQuotes = quotes()
+    if (allQuotes.length) {
+      const index = uiState().counter % allQuotes.length
+      setRandomQuote(allQuotes[index])
+    }
+  })
+
+  onMount(async () => {
+    try {
+      const response = await fetch('https://i18n-quotes.victr.workers.dev/')
+      const allQuotes = (await response.json()) as Quotes
+      setQuotes(allQuotes)
+      setRandomQuote(allQuotes[uiState().counter % allQuotes.length])
+    } catch (error) {
+      console.error('Failed to fetch quotes:', error)
+    }
+  })
 
   return (
     <div class="flex min-h-screen flex-col items-center justify-center bg-slate-100 p-4 dark:bg-slate-900">
@@ -44,8 +71,11 @@ export default function Page() {
         </CardContent>
       </Card>
 
-      <p class="mt-8 text-base text-slate-700 dark:text-slate-400">
-        Click on the Vite and Solid logos to learn more
+      <p id="footnotes" class="mt-8 text-center text-base text-slate-700 dark:text-slate-400">
+        <Show when={randomQuote()} fallback="Click on the Vite and Solid logos to learn more">
+          <span class="mb-2 block italic">"{randomQuote()?.content}"</span>
+          <span class="text-sm">— {randomQuote()?.author}</span>
+        </Show>
       </p>
     </div>
   )
