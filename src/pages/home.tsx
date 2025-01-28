@@ -64,7 +64,7 @@ export default function Page() {
           <p class="text-center text-slate-700 dark:text-slate-300">
             Edit{' '}
             <code class="rounded bg-slate-200 px-2 py-1 text-slate-900 text-sm dark:bg-slate-700 dark:text-slate-100">
-              src/App.tsx
+              src/pages/home.tsx
             </code>{' '}
             and save to test HMR
           </p>

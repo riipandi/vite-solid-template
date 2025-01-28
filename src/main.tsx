@@ -1,6 +1,9 @@
+/* import the global styles */
+import './assets/styles/globals.css'
+import './assets/styles/colors.css'
+
 /* @refresh reload */
 import { render } from 'solid-js/web'
-import './assets/styles/globals.css'
 import AppRoutes from './routes'
 
 const rootElement = document.getElementById('root')
