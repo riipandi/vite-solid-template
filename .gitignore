@@ -4,7 +4,6 @@
 /.idea
 /.pnp
 /.cache
-/.output
 /.husky
 .pnp.js
 .DS_Store
