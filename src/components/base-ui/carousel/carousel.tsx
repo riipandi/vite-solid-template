@@ -12,7 +12,7 @@ import {
   useContext,
 } from 'solid-js'
 import { clx } from '#/libs/utils'
-import { Button } from './button'
+import { Button } from '../button/button'
 
 export type CarouselApi = CreateEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof createEmblaCarousel>

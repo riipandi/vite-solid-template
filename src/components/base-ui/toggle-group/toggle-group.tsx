@@ -5,7 +5,7 @@ import type { VariantProps } from 'class-variance-authority'
 import type { Accessor, ParentProps, ValidComponent } from 'solid-js'
 import { createContext, createMemo, splitProps, useContext } from 'solid-js'
 import { clx } from '#/libs/utils'
-import { toggleVariants } from './toggle'
+import { toggleVariants } from '../toggle/toggle'
 
 const ToggleGroupContext = createContext<Accessor<VariantProps<typeof toggleVariants>>>()
 

@@ -1,8 +1,6 @@
 import { useStore } from '@nanostores/solid'
 import { Show, createEffect, createSignal, onMount } from 'solid-js'
-import { Button } from '#/components/base-ui/button'
-import { Card, CardContent } from '#/components/base-ui/card'
-import { Link } from '#/components/link'
+import { Button, Card, CardContent, Link } from '#/components/base-ui'
 import { resetUiState, saveUiState, uiStore } from '#/stores/ui.store'
 
 import viteLogo from '/vite.svg'

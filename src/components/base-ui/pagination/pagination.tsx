@@ -10,7 +10,7 @@ import type { VariantProps } from 'class-variance-authority'
 import type { ValidComponent, VoidProps } from 'solid-js'
 import { mergeProps, splitProps } from 'solid-js'
 import { clx } from '#/libs/utils'
-import { buttonVariants } from './button'
+import { buttonVariants } from '../button/button'
 
 export const PaginationItems = PaginationPrimitive.Items
 

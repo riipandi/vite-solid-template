@@ -11,7 +11,7 @@ import { Command as CommandPrimitive } from 'cmdk-solid'
 import type { ComponentProps, VoidProps } from 'solid-js'
 import { splitProps } from 'solid-js'
 import { clx } from '#/libs/utils'
-import { Dialog, DialogContent } from './dialog'
+import { Dialog, DialogContent } from '../dialog/dialog'
 
 export const Command = (props: CommandRootProps) => {
   const [local, rest] = splitProps(props, ['class'])

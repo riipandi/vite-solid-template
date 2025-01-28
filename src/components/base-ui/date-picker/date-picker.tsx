@@ -18,7 +18,7 @@ import { DatePicker as DatePickerPrimitive } from '@ark-ui/solid/date-picker'
 import type { VoidProps } from 'solid-js'
 import { splitProps } from 'solid-js'
 import { clx } from '#/libs/utils'
-import { buttonVariants } from './button'
+import { buttonVariants } from '../button/button'
 
 export const DatePickerLabel = DatePickerPrimitive.Label
 export const DatePickerTableHead = DatePickerPrimitive.TableHead

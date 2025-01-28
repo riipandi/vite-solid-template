@@ -12,7 +12,7 @@ import type { PolymorphicProps } from '@kobalte/core/polymorphic'
 import type { ComponentProps, ValidComponent, VoidProps } from 'solid-js'
 import { splitProps } from 'solid-js'
 import { clx } from '#/libs/utils'
-import { textfieldLabel } from './textfield'
+import { textfieldLabel } from '../textfield/textfield'
 
 export const NumberFieldHiddenInput = NumberFieldPrimitive.HiddenInput
 

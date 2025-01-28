@@ -9,7 +9,7 @@ import type { PolymorphicProps } from '@kobalte/core/polymorphic'
 import type { ComponentProps, ParentProps, ValidComponent } from 'solid-js'
 import { splitProps } from 'solid-js'
 import { clx } from '#/libs/utils'
-import { buttonVariants } from './button'
+import { buttonVariants } from '../button/button'
 
 export const AlertDialog = AlertDialogPrimitive
 export const AlertDialogTrigger = AlertDialogPrimitive.Trigger
