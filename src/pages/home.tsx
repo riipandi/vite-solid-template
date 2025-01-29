@@ -4,7 +4,7 @@ import { Show } from 'solid-js'
 import { Button, Card, CardContent, Link } from '#/components/base-ui'
 import { resetUiState, saveUiState, uiStore } from '#/context/stores/ui.store'
 
-import viteLogo from '/vite.svg'
+import viteLogo from '/images/vite.svg'
 import { ThemeSwitcher } from '#/components/theme/switcher'
 import solidLogo from '../assets/images/solid.svg'
 
