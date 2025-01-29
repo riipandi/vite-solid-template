@@ -15,7 +15,7 @@ import { Portal } from 'solid-js/web'
 import { clx } from '#/libs/utils'
 
 export const toastVariants = cva(
-  'group data-[closed]:fade-out-80 data-[closed]:slide-out-to-top-full data-[closed]:sm:slide-out-to-bottom-full data-[opened]:slide-in-from-top-full data-[opened]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full flex-col items-center justify-between gap-3 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all data-[swipe=cancel]:translate-y-0 data-[swipe=end]:translate-y-[var(--kb-toast-swipe-end-y)] data-[swipe=move]:translate-y-[--kb-toast-swipe-move-y] data-[closed]:animate-out data-[opened]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none',
+  'group data-[closed]:fade-out-80 data-[closed]:slide-out-to-top-full data-[closed]:sm:slide-out-to-bottom-full data-[opened]:slide-in-from-top-full data-[opened]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full flex-col items-center justify-between gap-3 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all data-[swipe=cancel]:translate-y-0 data-[swipe=end]:translate-y-[var(--kb-toast-swipe-end-y)] data-[swipe=move]:translate-y-(--kb-toast-swipe-move-y) data-[closed]:animate-out data-[opened]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none',
   {
     variants: {
       variant: {
@@ -143,7 +143,7 @@ export const ToastContent = (props: ComponentProps<'div'>) => {
 export const ToastProgress: VoidComponent = () => {
   return (
     <ToastPrimitive.ProgressTrack class="h-1 w-full overflow-hidden rounded-lg bg-primary/20 group-[.destructive]:bg-background/20">
-      <ToastPrimitive.ProgressFill class="h-full w-[--kb-toast-progress-fill-width] bg-primary transition-all duration-150 ease-linear group-[.destructive]:bg-destructive-foreground" />
+      <ToastPrimitive.ProgressFill class="h-full w-(--kb-toast-progress-fill-width) bg-primary transition-all duration-150 ease-linear group-[.destructive]:bg-destructive-foreground" />
     </ToastPrimitive.ProgressTrack>
   )
 }

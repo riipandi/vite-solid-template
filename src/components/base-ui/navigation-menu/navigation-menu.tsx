@@ -56,10 +56,10 @@ export const NavigationMenu = <T extends ValidComponent = 'ul'>(
       <NavigationMenuPrimitive.Viewport
         class={clx(
           'pointer-events-none z-50 overflow-x-clip overflow-y-visible rounded-md border bg-popover text-popover-foreground shadow',
-          'h-[--kb-navigation-menu-viewport-height] w-[--kb-navigation-menu-viewport-width] transition-[width,height] duration-300',
-          'origin-[--kb-menu-content-transform-origin]',
+          'h-(--kb-navigation-menu-viewport-height) w-(--kb-navigation-menu-viewport-width) transition-[width,height] duration-300',
           'data-[expanded]:fade-in data-[expanded]:zoom-in-95 data-[expanded]:animate-in data-[expanded]:duration-300',
-          'data-[closed]:fade-out data-[closed]:zoom-out-95 data-[closed]:animate-out data-[closed]:duration-300'
+          'data-[closed]:fade-out data-[closed]:zoom-out-95 data-[closed]:animate-out data-[closed]:duration-300',
+          'origin-(--kb-menu-content-transform-origin)'
         )}
       >
         <Show when={local.withArrow}>
