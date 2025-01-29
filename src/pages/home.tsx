@@ -2,9 +2,10 @@ import { useStore } from '@nanostores/solid'
 import { createQuery } from '@tanstack/solid-query'
 import { Show } from 'solid-js'
 import { Button, Card, CardContent, Link } from '#/components/base-ui'
-import { resetUiState, saveUiState, uiStore } from '#/stores/ui.store'
+import { resetUiState, saveUiState, uiStore } from '#/context/stores/ui.store'
 
 import viteLogo from '/vite.svg'
+import { ThemeSwitcher } from '#/components/theme/switcher'
 import solidLogo from '../assets/images/solid.svg'
 
 type Quote = {
@@ -45,7 +46,7 @@ export default function Page() {
       <h1 class="mb-8 font-bold text-4xl text-slate-900 dark:text-white">Vite + Solid</h1>
 
       <Card class="w-full max-w-md">
-        <CardContent class="space-y-4 p-8">
+        <CardContent class="space-y-6 p-8">
           <div class="grid grid-cols-2 justify-center gap-2">
             <Button
               onClick={() => saveUiState({ counter: uiState().counter + 1 })}
@@ -66,6 +67,9 @@ export default function Page() {
             </code>{' '}
             and save to test HMR
           </p>
+          <div class="flex items-center justify-center">
+            <ThemeSwitcher />
+          </div>
         </CardContent>
       </Card>
 

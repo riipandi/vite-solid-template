@@ -4,7 +4,7 @@ import { fontFamily } from 'tailwindcss/defaultTheme'
 
 export default {
   content: ['./src/**/*!(*.stories|*.spec|*.test).{ts,tsx}'],
-  darkMode: ['class', '[data-kb-theme="dark"]'],
+  darkMode: ['class', '[data-theme="dark"]'],
   prefix: '',
   theme: {
     container: {
