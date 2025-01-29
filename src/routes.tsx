@@ -6,7 +6,7 @@ const Home = lazy(() => import('./pages/home'))
 const NotFound = lazy(() => import('./pages/404'))
 
 const AppRoutes = () => (
-  <Router root={RootLayout}>
+  <Router root={RootLayout} base="/">
     <Route path="/" component={Home} />
     <Route path="*404" component={NotFound} />
   </Router>

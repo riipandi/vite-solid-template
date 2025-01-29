@@ -1,38 +1,35 @@
 import { useStore } from '@nanostores/solid'
-import { Show, createEffect, createSignal, onMount } from 'solid-js'
-import viteLogo from '/vite.svg'
+import { createQuery } from '@tanstack/solid-query'
+import { Show } from 'solid-js'
 import { Button, Card, CardContent, Link } from '#/components/base-ui'
 import { resetUiState, saveUiState, uiStore } from '#/stores/ui.store'
+
+import viteLogo from '/vite.svg'
 import solidLogo from '../assets/images/solid.svg'
 
-type Quotes = {
+type Quote = {
   author: string
   content: string
-}[]
+}
 
 export default function Page() {
   const uiState = useStore(uiStore)
-  const [quotes, setQuotes] = createSignal<Quotes>([])
-  const [randomQuote, setRandomQuote] = createSignal<Quotes[0] | null>(null)
 
-  createEffect(() => {
-    const allQuotes = quotes()
-    if (allQuotes.length) {
-      const index = uiState().counter % allQuotes.length
-      setRandomQuote(allQuotes[index])
-    }
-  })
+  const quoteQuery = createQuery(() => ({
+    queryKey: ['quotes'],
+    queryFn: async (): Promise<Quote[]> => {
+      const response = await fetch('https://i18n-quotes.victr.workers.dev')
+      if (!response.ok) throw new Error('Failed to fetch quotes')
+      return response.json()
+    },
+  }))
 
-  onMount(async () => {
-    try {
-      const response = await fetch('https://i18n-quotes.victr.workers.dev/')
-      const allQuotes = (await response.json()) as Quotes
-      setQuotes(allQuotes)
-      setRandomQuote(allQuotes[uiState().counter % allQuotes.length])
-    } catch (error) {
-      console.error('Failed to fetch quotes:', error)
-    }
-  })
+  const randomQuote = () => {
+    const data = quoteQuery.data
+    if (!data || data.length === 0) return null
+    const index = uiState().counter % data.length
+    return data[index]
+  }
 
   return (
     <div class="flex min-h-screen flex-col items-center justify-center bg-slate-100 p-4 dark:bg-slate-900">
@@ -72,7 +69,11 @@ export default function Page() {
         </CardContent>
       </Card>
 
-      <p id="footnotes" class="mt-8 text-center text-base text-slate-700 dark:text-slate-400">
+      <p id="footnotes" class="mt-8 max-w-2xl text-center text-slate-700 dark:text-slate-400">
+        <Show when={quoteQuery.isPending}>Loading...</Show>
+        <Show when={quoteQuery.isError}>
+          <span>Error: {(quoteQuery.error as Error).message}</span>
+        </Show>
         <Show when={randomQuote()} fallback="Click on the Vite and Solid logos to learn more">
           <span class="mb-2 block italic">"{randomQuote()?.content}"</span>
           <span class="text-sm">— {randomQuote()?.author}</span>
