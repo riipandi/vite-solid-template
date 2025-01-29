@@ -1,9 +1,8 @@
 import { useStore } from '@nanostores/solid'
 import { Show, createEffect, createSignal, onMount } from 'solid-js'
+import viteLogo from '/vite.svg'
 import { Button, Card, CardContent, Link } from '#/components/base-ui'
 import { resetUiState, saveUiState, uiStore } from '#/stores/ui.store'
-
-import viteLogo from '/vite.svg'
 import solidLogo from '../assets/images/solid.svg'
 
 type Quotes = {
@@ -49,12 +48,16 @@ export default function Page() {
       <h1 class="mb-8 font-bold text-4xl text-slate-900 dark:text-white">Vite + Solid</h1>
 
       <Card class="w-full max-w-md">
-        <CardContent class="space-y-4 py-8">
+        <CardContent class="space-y-4 p-8">
           <div class="grid grid-cols-2 justify-center gap-2">
-            <Button onClick={() => saveUiState({ counter: uiState().counter + 1 })} class="w-full">
+            <Button
+              onClick={() => saveUiState({ counter: uiState().counter + 1 })}
+              variant="default"
+              class="w-full"
+            >
               Count {uiState().counter}
             </Button>
-            <Button onClick={() => resetUiState()} class="w-full">
+            <Button onClick={() => resetUiState()} variant="destructive" class="w-full">
               Reset
             </Button>
           </div>
