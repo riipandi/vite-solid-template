@@ -1,4 +1,5 @@
 /* import the global styles */
+import './assets/styles/fontface.css'
 import './assets/styles/globals.css'
 import './assets/styles/colors.css'
 
