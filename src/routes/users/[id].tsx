@@ -5,7 +5,7 @@ import { createMemo } from 'solid-js'
 import { paths } from '../../router'
 
 // Async data loading: a query (cached per key) read through a memo — the
-// surrounding <Loading> boundary (in App.tsx) shows its fallback until the
+// surrounding <Loading> boundary (in app.tsx) shows its fallback until the
 // promise settles. Swap the static JSON for any API endpoint.
 const getUser = query(async (id: string) => {
   // Same-origin URLs need an explicit origin when this runs during SSR

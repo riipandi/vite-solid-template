@@ -12,7 +12,15 @@
   "arrowParens": "always",
   "endOfLine": "lf",
   "quoteProps": "as-needed",
-  "ignorePatterns": ["dist", "public", "node_modules", "storybook-static", "tests-results", ".git"],
+  "ignorePatterns": [
+    ".git",
+    "dist",
+    "public",
+    "node_modules",
+    "storybook-static",
+    "tests-results",
+    "file-routes.d.ts"
+  ],
   "sortTailwindcss": {
     "tailwindStylesheet": "./src/styles/globals.css",
     "functions": ["cn", "clx", "clsx", "cva", "tw"]
