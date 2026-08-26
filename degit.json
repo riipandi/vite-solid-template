@@ -1,6 +1,6 @@
 [
-    {
-        "action": "remove",
-        "files": ["README.md"]
-    }
+  {
+    "action": "remove",
+    "files": ["README.md", "LICENSE-APACHE", "LICENSE-MIT"]
+  }
 ]

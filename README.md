@@ -1,73 +1,55 @@
-# Minimal SolidStart Starter Kit
+## Solid `with-tailwindcss` template
 
-Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com)
-and [`tailwindcss`](https://tailwindcss.com/).
+This is `basic` plus [Tailwind CSS](https://tailwindcss.com) v4 — same routes, same demo, same tests; the pages are restyled with utility classes and `src/App.css` shrinks to one line. The diff against `basic` is the documentation of what Tailwind changes.
 
-## Creating a project
+**Deployment contract** (inherited from `basic`): zero server dependencies — `vite build` emits a purely static site; deploy `dist/client` anywhere.
 
-```bash
-pnpm dlx tiged riipandi/solid-start-minimal myapp-name
-```
+## How Tailwind fits this stack
 
-## Developing
+- The `tailwindcss()` Vite plugin (from `@tailwindcss/vite`, registered in `vite.config.ts`) scans your source files for class names and generates exactly that CSS. There is no `tailwind.config.js` — v4 is configured in CSS, and the default setup needs none.
+- `src/App.css` is the stylesheet: `@import 'tailwindcss';` pulls in the preflight reset and the generated utilities. It stays imported by `src/App.tsx`, so it flows into the prerendered document shell exactly like any app CSS — nothing about the turnkey setup changes.
+- Element defaults are reset by preflight, so styling lives in `class` attributes (see the restyled pages under `src/routes`); site-wide element rules can be added back in `src/App.css` with `@layer base`.
+- If a class name doesn't apply, it usually wasn't seen by the scanner: class names must appear as complete strings in source (no runtime string-building).
 
-After installing dependencies with `pnpm install`, start the development server:
+Everything else — file-system routing, data loading, testing, the one-boolean `ssr: true` flip — is `basic`; see its README.
 
-```bash
-pnpm dev
-```
+## Usage
 
-## Building & Starting
+Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
 
-Build your app for production:
+This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
 
 ```bash
-pnpm build
+$ npm install # or pnpm install or yarn install
 ```
 
-Run the built app:
+### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
 
-```bash
-pnpm start
-```
+## Available Scripts
 
-## Storybook
+In the project directory, you can run:
 
-Run Storybook for UI component development:
+### `npm run dev` or `npm start`
 
-```bash
-pnpm storybook
-```
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Build Storybook:
+The page will reload if you make edits.<br>
 
-```bash
-pnpm storybook:build
-```
+### `npm run build`
 
-## Code Quality
+Builds the static production site to `dist/client`, routes code-split, CSS pruned to the classes actually used.
 
-Check, format, and lint your code with Biome:
+### `npm run serve`
 
-```bash
-pnpm check
-pnpm format
-pnpm lint
-```
+Serves the production build locally.
 
-## Type Checking
+### `npm test`
 
-Check types with TypeScript:
+Runs the test suite.
 
-```bash
-pnpm typecheck
-```
+## Deployment
 
-## Technologies Used
+Deploy the `dist/client` folder to any static host provider (netlify, surge, now, etc.)
 
-- [SolidJS](https://www.solidjs.com/)
-- [Vinxi](https://vinxi.dev/)
-- [TailwindCSS](https://tailwindcss.com/)
-- [Storybook](https://storybook.js.org/)
-- [Biome](https://biomejs.dev/)
-- [Vitest](https://vitest.dev/)
+## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)
