@@ -1,24 +1,24 @@
-import type { ParentProps } from 'solid-js'
-import { HydrationScript } from '@solidjs/web'
+/**
+ * The document shell (the index.html replacement), picked up by the
+ * src/Document.* convention; it must render the full <html> and ships
+ * no client JS. <HydrationScript /> is stripped from the prerendered
+ * shell in client mode and activates under `ssr: true`.
+ */
 
-// The document shell — the new index.html: picked up by the src/Document.*
-// convention, it wraps the app in the plugin's generated entries and must
-// render the full <html>. Head tags go here. It is compiled only into the
-// prerendered static shell and ships zero client-side JS: in client mode
-// <HydrationScript /> is stripped from the shell, and it activates when the
-// app flips to SSR (`ssr: true` in vite.config.ts) — no document changes
-// needed. Delete this file to fall back to the plugin's built-in shell.
+import { HydrationScript } from '@solidjs/web'
+import type { ParentProps } from 'solid-js'
+
 export default function Document(props: ParentProps) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta charset='utf-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link rel='icon' href='/favicon.ico' />
         <title>Solid App</title>
         <HydrationScript />
       </head>
-      <body class="text-center font-sans">{props.children}</body>
+      <body>{props.children}</body>
     </html>
   )
 }

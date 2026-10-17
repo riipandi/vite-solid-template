@@ -1,35 +1,34 @@
-import tailwindcss from '@tailwindcss/vite'
+import solid from '@solidjs/vite-plugin'
 import { fileRoutes } from 'filesystem-routing/vite'
 import { defineConfig } from 'vitest/config'
-import solid from '@solidjs/vite-plugin'
-
-/**
- * Turnkey client mode: no index.html and no mount file — the plugin generates
- * the entries around src/app.tsx, wrapped in src/document.tsx (or a built-in shell).
- * `vite build` prerenders the shell into `dist/client/index.html` and emits
- * a purely static `dist/client`. `extensions` makes @solidjs/vite-plugin also
- * compile the `?pick=` route modules the fileRoutes plugin emits
- * (their ids end in a query string).
- */
 
 export default defineConfig({
   plugins: [
-    solid({ start: true, ssr: false, extensions: ['.jsx', '.tsx'] }),
-    fileRoutes({ types: true }),
-    tailwindcss(),
+    solid({
+      diagnostics: false,
+      extensions: ['.jsx', '.tsx'],
+      start: true,
+      ssr: true
+    }),
+    fileRoutes({ types: true })
   ],
-  server: {
-    port: 3000,
+  server: { port: 3000, strictPort: true },
+  build: {
+    assetsInlineLimit: 0,
+    target: 'esnext'
   },
   test: {
+    coverage: {
+      provider: 'v8',
+      reportsDirectory: '.output/coverage',
+      reporter: ['text-summary', 'html', 'json-summary'],
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
+      exclude: ['**/*.d.ts']
+    },
     environment: 'jsdom',
-    globals: false,
+    include: ['src/**/*.test.tsx'],
     setupFiles: ['./vitest-setup.ts'],
-    isolate: false,
-  },
-  build: {
-    target: 'esnext',
-    // Keep images as asset files instead of inlining them into the JS bundle.
-    assetsInlineLimit: 0,
-  },
+    globals: false,
+    isolate: false
+  }
 })
