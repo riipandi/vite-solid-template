@@ -13,6 +13,7 @@ const serverEnv = {
 
 export default defineConfig({
   testDir: 'e2e/screens',
+  testMatch: '**/*.spec.ts',
   outputDir: '.output/e2e',
   reporter: [['list'], ['html', { outputFolder: '.output/e2e-result', open: 'never' }]],
   fullyParallel: true,
