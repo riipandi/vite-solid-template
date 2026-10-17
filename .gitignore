@@ -4,6 +4,7 @@ dist
 .vercel
 .netlify
 .vinxi
+storybook-static
 app.config.timestamp_*.js
 file-routes.d.ts
 

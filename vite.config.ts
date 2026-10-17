@@ -2,15 +2,16 @@ import solid from '@solidjs/vite-plugin'
 import { fileRoutes } from 'filesystem-routing/vite'
 import { defineConfig } from 'vitest/config'
 
+const storybook = process.argv.some((arg) => arg.includes('storybook'))
+
 export default defineConfig({
   plugins: [
     solid({
       diagnostics: false,
       extensions: ['.jsx', '.tsx'],
-      start: true,
-      ssr: true
+      ...(storybook ? {} : { start: true, ssr: true })
     }),
-    fileRoutes({ types: true })
+    storybook ? null : fileRoutes({ types: true })
   ],
   server: { port: 3000, strictPort: true },
   build: {
