@@ -1,17 +1,22 @@
 import solid from '@solidjs/vite-plugin'
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { playwright } from '@vitest/browser-playwright'
 import { fileRoutes } from 'filesystem-routing/vite'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitest/config'
 
-const storybook = process.argv.some((arg) => arg.includes('storybook'))
+// Storybook and Vitest render components in the browser. The app server
+// (start + SSR + file routes) stays on for `vite` and `vite build`.
+const uiPreview = !!process.env.VITEST || process.argv.some((arg) => arg.includes('storybook'))
 
 export default defineConfig({
   plugins: [
     solid({
       diagnostics: false,
       extensions: ['.jsx', '.tsx'],
-      ...(storybook ? {} : { start: true, ssr: true })
+      ...(uiPreview ? {} : { start: true, ssr: true })
     }),
-    storybook ? null : fileRoutes({ types: true })
+    uiPreview ? null : fileRoutes({ types: true })
   ],
   server: { port: 3000, strictPort: true },
   build: {
@@ -24,12 +29,60 @@ export default defineConfig({
       reportsDirectory: '.output/coverage',
       reporter: ['text-summary', 'html', 'json-summary'],
       include: ['src/**/*.ts', 'src/**/*.tsx'],
-      exclude: ['**/*.d.ts']
+      exclude: ['**/*.d.ts', '**/*.stories.tsx']
     },
-    environment: 'jsdom',
-    include: ['src/**/*.test.{ts,tsx}'],
-    setupFiles: ['./vitest-setup.ts'],
-    globals: false,
-    isolate: false
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'unit',
+          environment: 'jsdom',
+          include: ['src/**/*.test.{ts,tsx}'],
+          setupFiles: ['./vitest-setup.ts'],
+          globals: false,
+          isolate: false
+        }
+      },
+      {
+        extends: false,
+        plugins: [
+          solid({ diagnostics: false, extensions: ['.jsx', '.tsx'] }),
+          storybookTest({
+            configDir: fileURLToPath(new URL('./.storybook', import.meta.url)),
+            storybookScript: 'pnpm storybook'
+          }),
+          {
+            name: 'solid-2-storybook-deps',
+            enforce: 'post',
+            config(config) {
+              config.optimizeDeps ??= {}
+              const include = (config.optimizeDeps.include ?? []).filter(
+                (id) => !id.startsWith('solid-js/') && !id.startsWith('react')
+              )
+              include.push('solid-js/refresh')
+              config.optimizeDeps.include = include
+            }
+          }
+        ],
+        resolve: {
+          alias: [
+            {
+              find: 'storybook-solidjs-vite/renderer/solid-legacy',
+              replacement: 'storybook-solidjs-vite/renderer/solid-next'
+            }
+          ]
+        },
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            instances: [{ browser: 'chromium' }]
+          },
+          setupFiles: ['./.storybook/vitest.setup.ts']
+        }
+      }
+    ]
   }
 })
