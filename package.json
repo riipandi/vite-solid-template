@@ -2,15 +2,21 @@
   "name": "example-with-vitest-browser-mode",
   "version": "0.0.0",
   "description": "",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview",
+    "preview": "vite preview",
     "test": "vitest",
     "lint": "oxlint src"
   },
-  "license": "MIT",
+  "dependencies": {
+    "@solidjs/meta": "^2.0.0",
+    "@solidjs/router": "^2.0.0",
+    "@solidjs/web": "^2.0.0",
+    "solid-js": "^2.0.0"
+  },
   "devDependencies": {
     "@solidjs/diagnostics": "^2.0.0",
     "@solidjs/start-devtools": "^1.0.0-next.4",
@@ -25,11 +31,5 @@
     "typescript": "^7.0.2",
     "vite": "^8.3.8",
     "vitest": "^5.1.0"
-  },
-  "dependencies": {
-    "@solidjs/meta": "^2.0.0",
-    "@solidjs/router": "^2.0.0",
-    "@solidjs/web": "^2.0.0",
-    "solid-js": "^2.0.0"
   }
 }
