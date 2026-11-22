@@ -1,7 +1,7 @@
-import { playwright } from '@vitest/browser-playwright';
-import { fileRoutes } from 'filesystem-routing/vite';
-import { defineConfig } from 'vitest/config';
-import solid from '@solidjs/vite-plugin';
+import { playwright } from "@vitest/browser-playwright";
+import { fileRoutes } from "filesystem-routing/vite";
+import { defineConfig } from "vitest/config";
+import solid from "@solidjs/vite-plugin";
 
 export default defineConfig({
   // Turnkey client mode: no index.html and no mount file — the plugin generates
@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     // `extensions` makes @solidjs/vite-plugin also compile the `?pick=` route
     // modules the fileRoutes plugin emits (their ids end in a query string).
-    solid({ start: true, extensions: ['.jsx', '.tsx'], diagnostics: true }), // add `ssr: true` for streaming SSR
+    solid({ start: true, extensions: [".jsx", ".tsx"], diagnostics: true }), // add `ssr: true` for streaming SSR
     fileRoutes({ types: true }),
   ],
   server: {
@@ -18,7 +18,7 @@ export default defineConfig({
   },
   test: {
     globals: false,
-    setupFiles: ['./vitest-setup.ts'],
+    setupFiles: ["./vitest-setup.ts"],
     // Tests run in a real Chromium page instead of a simulated jsdom
     // document. `vitest --ui` (or headless: false) opens it visibly.
     browser: {
@@ -26,11 +26,11 @@ export default defineConfig({
       provider: playwright(), // or 'webdriverio'
       headless: true,
       // at least one instance is required
-      instances: [{ browser: 'chromium' }],
+      instances: [{ browser: "chromium" }],
     },
   },
   build: {
-    target: 'esnext',
+    target: "esnext",
     assetsInlineLimit: 0,
   },
 });
