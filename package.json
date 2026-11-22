@@ -14,23 +14,23 @@
   "dependencies": {
     "@kobalte/core": "^0.13.14",
     "@solidjs/meta": "^2.0.0",
-    "@solidjs/router": "^2.0.0",
-    "@solidjs/web": "^2.0.0",
-    "solid-js": "^2.0.0"
+    "@solidjs/router": "^2.0.1",
+    "@solidjs/web": "^2.0.3",
+    "solid-js": "^2.0.3"
   },
   "devDependencies": {
-    "@solidjs/diagnostics": "^2.0.0",
+    "@solidjs/diagnostics": "^2.0.3",
     "@solidjs/start-devtools": "^1.0.0-next.4",
     "@solidjs/testing-library": "^1.0.0-rc.2",
-    "@solidjs/vite-plugin": "^3.0.0",
-    "@testing-library/jest-dom": "^7.0.0",
-    "@vitest/browser-playwright": "^5.1.0",
-    "eslint-plugin-solid": "~0.20.0",
+    "@solidjs/vite-plugin": "^3.0.1",
+    "@testing-library/jest-dom": "^8.0.0",
+    "@vitest/browser-playwright": "^5.1.1",
+    "eslint-plugin-solid": "~0.20.1",
     "filesystem-routing": "0.5.0",
-    "oxlint": "~1.92.0",
-    "playwright": "^1.56.0",
+    "oxlint": "^1.94.0",
+    "playwright": "^1.65.1",
     "typescript": "^7.0.2",
     "vite": "^8.3.8",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   }
 }
