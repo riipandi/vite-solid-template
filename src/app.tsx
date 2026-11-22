@@ -1,7 +1,7 @@
-import { Title } from '@solidjs/meta'
-import { Loading } from 'solid-js'
-import { paths, Router } from './router'
-import './assets/app.css'
+import { Title } from '@solidjs/meta';
+import { Loading } from 'solid-js';
+import { paths, Router } from './router';
+import './App.css';
 
 export default function App() {
   return (
@@ -17,5 +17,5 @@ export default function App() {
         </>
       )}
     </Router>
-  )
+  );
 }

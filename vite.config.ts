@@ -1,88 +1,36 @@
-import solid from '@solidjs/vite-plugin'
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
-import { playwright } from '@vitest/browser-playwright'
-import { fileRoutes } from 'filesystem-routing/vite'
-import { fileURLToPath } from 'node:url'
-import { defineConfig } from 'vitest/config'
-
-// Storybook and Vitest render components in the browser. The app server
-// (start + SSR + file routes) stays on for `vite` and `vite build`.
-const uiPreview = !!process.env.VITEST || process.argv.some((arg) => arg.includes('storybook'))
+import { playwright } from '@vitest/browser-playwright';
+import { fileRoutes } from 'filesystem-routing/vite';
+import { defineConfig } from 'vitest/config';
+import solid from '@solidjs/vite-plugin';
 
 export default defineConfig({
+  // Turnkey client mode: no index.html and no mount file — the plugin generates
+  // the entries around src/App.tsx (wrapped in src/Document.tsx) and `vite build`
+  // prerenders the shell into a purely static dist/client.
   plugins: [
-    solid({
-      diagnostics: false,
-      extensions: ['.jsx', '.tsx'],
-      ...(uiPreview ? {} : { start: true, ssr: true })
-    }),
-    uiPreview ? null : fileRoutes({ types: true })
+    // `extensions` makes @solidjs/vite-plugin also compile the `?pick=` route
+    // modules the fileRoutes plugin emits (their ids end in a query string).
+    solid({ start: true, extensions: ['.jsx', '.tsx'], diagnostics: true }), // add `ssr: true` for streaming SSR
+    fileRoutes({ types: true }),
   ],
-  server: { port: 3000, strictPort: true },
-  build: {
-    assetsInlineLimit: 0,
-    target: 'esnext'
+  server: {
+    port: 3000,
   },
   test: {
-    coverage: {
-      provider: 'v8',
-      reportsDirectory: '.output/coverage',
-      reporter: ['text-summary', 'html', 'json-summary'],
-      include: ['src/**/*.ts', 'src/**/*.tsx'],
-      exclude: ['**/*.d.ts', '**/*.stories.tsx']
+    globals: false,
+    setupFiles: ['./vitest-setup.ts'],
+    // Tests run in a real Chromium page instead of a simulated jsdom
+    // document. `vitest --ui` (or headless: false) opens it visibly.
+    browser: {
+      enabled: true,
+      provider: playwright(), // or 'webdriverio'
+      headless: true,
+      // at least one instance is required
+      instances: [{ browser: 'chromium' }],
     },
-    projects: [
-      {
-        extends: true,
-        test: {
-          name: 'unit',
-          environment: 'jsdom',
-          include: ['src/**/*.test.{ts,tsx}'],
-          setupFiles: ['./vitest-setup.ts'],
-          globals: false,
-          isolate: false
-        }
-      },
-      {
-        extends: false,
-        plugins: [
-          solid({ diagnostics: false, extensions: ['.jsx', '.tsx'] }),
-          storybookTest({
-            configDir: fileURLToPath(new URL('./.storybook', import.meta.url)),
-            storybookScript: 'pnpm storybook'
-          }),
-          {
-            name: 'solid-2-storybook-deps',
-            enforce: 'post',
-            config(config) {
-              config.optimizeDeps ??= {}
-              const include = (config.optimizeDeps.include ?? []).filter(
-                (id) => !id.startsWith('solid-js/') && !id.startsWith('react')
-              )
-              include.push('solid-js/refresh')
-              config.optimizeDeps.include = include
-            }
-          }
-        ],
-        resolve: {
-          alias: [
-            {
-              find: 'storybook-solidjs-vite/renderer/solid-legacy',
-              replacement: 'storybook-solidjs-vite/renderer/solid-next'
-            }
-          ]
-        },
-        test: {
-          name: 'storybook',
-          browser: {
-            enabled: true,
-            headless: true,
-            provider: playwright(),
-            instances: [{ browser: 'chromium' }]
-          },
-          setupFiles: ['./.storybook/vitest.setup.ts']
-        }
-      }
-    ]
-  }
-})
+  },
+  build: {
+    target: 'esnext',
+    assetsInlineLimit: 0,
+  },
+});

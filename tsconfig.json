@@ -1,36 +1,21 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "compilerOptions": {
-        "allowImportingTsExtensions": true,
-        "allowSyntheticDefaultImports": true,
-        "erasableSyntaxOnly": false,
-        "esModuleInterop": true,
-        "exactOptionalPropertyTypes": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "jsxImportSource": "@solidjs/web",
-        "lib": ["ESNext", "DOM"],
-        "module": "ESNext",
-        "moduleDetection": "force",
-        "moduleResolution": "bundler",
-        "noEmit": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitOverride": true,
-        "noPropertyAccessFromIndexSignature": false,
-        "noUncheckedIndexedAccess": true,
-        "noUncheckedSideEffectImports": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "resolveJsonModule": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "strictPropertyInitialization": true,
-        "target": "esnext",
-        "tsBuildInfoFile": ".output/tsconfig.tsbuildinfo",
-        "types": ["vite/client"],
-        "useDefineForClassFields": true,
-        "verbatimModuleSyntax": true
-    },
-    "include": ["**/*.ts", "**/*.tsx"],
-    "exclude": [".output", ".wrangler", "dist"]
+  "compilerOptions": {
+    // General
+    "jsx": "preserve",
+    "jsxImportSource": "@solidjs/web",
+    "target": "ESNext",
+
+    // Modules
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+
+    // Type Checking & Safety
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["vite/client"]
+  }
 }
